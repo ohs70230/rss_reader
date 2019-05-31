@@ -1,4 +1,4 @@
-$(function () {
+$(function() {
 	$("form").validate({
 		rules: {
 			url: {

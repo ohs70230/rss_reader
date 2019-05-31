@@ -10,12 +10,17 @@
 		<script type="text/javascript" src="js/validate.js"></script>
 	</head>
 	<body>
-		<form action="index.php" method="GET" id="form">
+		<form action="#" method="GET" id="form">
 			<input type="radio" name="url" value="http://news.yahoo.co.jp/pickup/rss.xml">yahoo.co.jp国内最新情報<br/>
 			<input type="radio" name="url" value="https://news.yahoo.co.jp/pickup/computer/rss.xml">yahoo.co.jpITトピックス<br/>
 			<input type="radio" name="url" value="https://news.yahoo.co.jp/pickup/economy/rss.xml">yahoo.co.jp経済トピックス<br/>
 			<button type="submit" id="button">送信</button>
 		</form>
 		<div id="output"></div>
+		<script>
+			$('#button').on('click', function() {
+				$('#url-error').remove();
+			});
+		</script>
 	</body>
 </html>

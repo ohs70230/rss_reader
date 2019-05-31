@@ -1,4 +1,5 @@
 <?php
+	// クロスドメイン制約を回避する為、一旦外部のphpでxmlを取得する
 	header("Content-type: application/xml; charset=UTF-8");
 	$url = "";
 	if (isset($_GET['url'])) {

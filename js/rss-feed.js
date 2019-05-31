@@ -1,28 +1,40 @@
-function send_ajax () {
+function send_ajax() {
 	$.ajax({
-		url: 'model/index_rss.php',			// データ送り先のphpファイルのパス(相対)
+		url: 'php/xdomain_connect.php',		// データ送り先のphpファイルのパス(htmlからの相対パス)
 		type: 'GET',						// 送信データタイプ
 		dataType: 'xml',					// 受信データのファイル形式
 		data: {
-			// チェックしているラジオボタンのvalueを、'model/index_rss.php'にgetタイプで送信
+			// チェックしているラジオボタンのvalueを、'xdomain_connect.php'にgetタイプで送信
 			'url': $("input[name='url']:checked").val(),
 		},
-
-		// 'model/index_rss.php'で画面出力された文字列を、'xml'形式で変数dataに格納。
-		success: function(data) {
+	}) /* ajax() */
+	.then(
+		// 読み込み成功
+		function(data) {
 			var i = 1;
-			$('#output').empty();
-			$('#url-error').remove();
+			$('#output').empty();	// 通信に成功したら前回のxmlの出力結果をリセット
 			$(data).find('item').each(function() {
 				titleTxt = $(this).find('title').text();
-				pubdateTxt = $(this).find('pubDate').text();
+				// pubdateTxt = $(this).find('pubDate').text();
 				link = $(this).find('link').text();
-				$("#output").append("<div class='box' id='item"+i+"'></div>");
-				$("#output #item"+i).append("<a href='"+link+"'><h2>"+titleTxt+"</h2></a>");
-				$("#output #item"+i).append("<p>"+pubdateTxt+"</p>");
-				$("#output #item"+i).append("<hr>");
+				date = new Date($(this).find('pubDate').text());
+				$("#output").append("<div class='box' id='item" + i + "'></div>");
+				$("#output #item" + i).append("<a href='" + link + "'><h2>" + titleTxt + "</h2></a>");
+				$("#output #item" + i).append(
+					date.getFullYear() + "年"
+					+ (date.getMonth() + 1) + "月"
+					+ date.getDate() + "日"
+					+ date.getHours() + "時"
+					+ date.getMinutes() + "分"
+					+ date.getSeconds() + "秒"
+				);
+				$("#output #item" + i).append("<hr>");
 				i++;
-			})	// find
+			}) /* $(data).find('item').each() */
 		},
-	})
+		// 読み込み失敗
+		function() {
+			alert("読み込み失敗");
+		}
+	); /* then() */
 }
