@@ -14,10 +14,9 @@ function send_ajax() {
 			var i = 1;
 			$('#output').empty();	// 通信に成功したら前回のxmlの出力結果をリセット
 			$(data).find('item').each(function() {
-				titleTxt = $(this).find('title').text();
-				// pubdateTxt = $(this).find('pubDate').text();
-				link = $(this).find('link').text();
-				date = new Date($(this).find('pubDate').text());
+				var titleTxt = $(this).find('title').text();
+				var link = $(this).find('link').text();
+				var date = new Date($(this).find('pubDate').text());
 				$("#output").append("<div class='box' id='item" + i + "'></div>");
 				$("#output #item" + i).append("<a href='" + link + "'><h2>" + titleTxt + "</h2></a>");
 				$("#output #item" + i).append(
